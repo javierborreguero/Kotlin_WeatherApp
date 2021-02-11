@@ -12,7 +12,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        private const val DATABASE_NAME = "weather_database"
+        private const val DATABASE_NAME = "cities_database"
 
         @Volatile
         private var INSTANCE: AppDatabase? = null
