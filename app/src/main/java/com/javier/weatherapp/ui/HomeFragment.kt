@@ -53,8 +53,18 @@ class HomeFragment : Fragment() {
                     editTextLoginPassword.text.toString()
                 )
             ) {
-                val action = HomeFragmentDirections.actionHomeFragmentToCityWeatherFragment()
-                findNavController().navigate(action)
+                if (editTextLoginUserName.text.toString() == "" ||
+                    editTextLoginPassword.text.toString() == ""
+                ) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Por favor rellene todos los campos para poder identificar el usuario",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    val action = HomeFragmentDirections.actionHomeFragmentToCityWeatherFragment()
+                    findNavController().navigate(action)
+                }
             } else {
                 Toast.makeText(requireContext(), "Datos incorrectos", Toast.LENGTH_LONG).show()
             }
