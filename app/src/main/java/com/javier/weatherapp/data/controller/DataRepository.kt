@@ -1,8 +1,8 @@
-package com.javier.weatherapp.databse.controller
+package com.javier.weatherapp.data.controller
 
 import android.content.Context
-import com.javier.weatherapp.databse.model.User
-import com.javier.weatherapp.databse.model.UserDao
+import com.javier.weatherapp.data.model.User
+import com.javier.weatherapp.data.model.UserDao
 import kotlinx.coroutines.*
 
 class DataRepository(context: Context) {

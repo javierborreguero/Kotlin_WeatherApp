@@ -1,4 +1,4 @@
-package com.javier.weatherapp.databse.model
+package com.javier.weatherapp.data.model
 
 import androidx.room.Dao
 import androidx.room.Insert
