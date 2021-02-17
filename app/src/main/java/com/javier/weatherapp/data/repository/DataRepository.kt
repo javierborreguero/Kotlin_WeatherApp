@@ -1,6 +1,7 @@
-package com.javier.weatherapp.data.controller
+package com.javier.weatherapp.data.repository
 
 import android.content.Context
+import com.javier.weatherapp.data.database.AppDatabase
 import com.javier.weatherapp.data.model.User
 import com.javier.weatherapp.data.model.UserDao
 import kotlinx.coroutines.*

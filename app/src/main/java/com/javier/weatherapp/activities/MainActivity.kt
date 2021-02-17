@@ -1,8 +1,9 @@
-package com.javier.weatherapp
+    package com.javier.weatherapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
+import com.javier.weatherapp.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment

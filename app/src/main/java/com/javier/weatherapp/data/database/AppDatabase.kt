@@ -1,4 +1,4 @@
-package com.javier.weatherapp.data.controller
+package com.javier.weatherapp.data.database
 
 import android.content.Context
 import androidx.room.Database

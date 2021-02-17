@@ -10,7 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.javier.weatherapp.R
-import com.javier.weatherapp.data.controller.DataRepository
+import com.javier.weatherapp.data.repository.DataRepository
 import com.javier.weatherapp.data.model.User
 
 class RegisterFragment : Fragment() {

@@ -62,6 +62,5 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     // VOLLEY PARA LA LLAMADA A LA API
-    // Volley
     implementation 'com.android.volley:volley:1.1.1'
 }

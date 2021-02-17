@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.javier.weatherapp.R
 
 class CityWeatherFragment : Fragment() {
+    private lateinit var openSearchCityForm: FloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -17,7 +20,11 @@ class CityWeatherFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         // Inflate the layout for this fragment
-        var v = inflater.inflate(R.layout.fragment_city_weather, container, false)
+        val v = inflater.inflate(R.layout.fragment_city_weather, container, false)
+        openSearchCityForm = v.findViewById(R.id.openSearchCityForm)
+        openSearchCityForm.setOnClickListener {
+            findNavController().navigate(R.id.action_cityWeatherFragment_to_searchCityFragment)
+        }
         return v
     }
 
@@ -28,6 +35,7 @@ class CityWeatherFragment : Fragment() {
         var searchView = menuItemSearch.actionView as SearchView
         searchView.queryHint = "Buscar"
     }
+
     companion object {
 
         @JvmStatic
