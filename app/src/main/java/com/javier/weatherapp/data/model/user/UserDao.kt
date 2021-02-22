@@ -1,8 +1,9 @@
-package com.javier.weatherapp.data.model
+package com.javier.weatherapp.data.model.user
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.javier.weatherapp.data.model.user.User
 
 @Dao
 interface UserDao {

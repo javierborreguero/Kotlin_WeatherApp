@@ -1,11 +1,11 @@
-package com.javier.weatherapp.data.model
+package com.javier.weatherapp.data.model.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
 data class User(
-    @PrimaryKey val userName: String,
     val email: String,
+    @PrimaryKey val userName: String,
     val password: String
 )

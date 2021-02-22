@@ -1,15 +1,25 @@
 package com.javier.weatherapp.ui
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.SearchView
+import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.javier.weatherapp.R
+import org.json.JSONException
+import org.json.JSONObject
 
 class CityWeatherFragment : Fragment() {
-    private lateinit var openSearchCityForm: FloatingActionButton
+    private lateinit var editTextTextAddCity: EditText
+    private lateinit var buttonAdd: Button
+    private lateinit var textViewName: TextView
+    private lateinit var textViewTemperature: TextView
+    private val apiUrl = "http://api.openweathermap.org/data/2.5/weather"
+    private val apiKey = "9f249e3ba99c564ea61245c238f2831c"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -21,12 +31,78 @@ class CityWeatherFragment : Fragment() {
         setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_city_weather, container, false)
-        openSearchCityForm = v.findViewById(R.id.openSearchCityForm)
-        openSearchCityForm.setOnClickListener {
-            findNavController().navigate(R.id.action_cityWeatherFragment_to_searchCityFragment)
+        textViewName = v.findViewById(R.id.textViewName)
+        textViewTemperature = v.findViewById(R.id.textViewTemperature)
+        editTextTextAddCity = v.findViewById(R.id.editTextTextAddCity)
+        buttonAdd = v.findViewById(R.id.buttonAdd)
+        buttonAdd.setOnClickListener {
+            getWeatherDetails()
         }
         return v
     }
+
+    private fun getWeatherDetails() {
+        var tempUrl: String = ""
+        var city = editTextTextAddCity.text.toString().trim()
+        if (city == "") {
+            Toast.makeText(requireContext(), "El campo no puede estar vacío", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            tempUrl = "$apiUrl?q=$city&appid=$apiKey"
+            // Request a string response from the provided URL.
+            val stringRequest = StringRequest(
+                Request.Method.GET, tempUrl,
+                // Si los datos están bien introducidos, mostramos el resultado que se obtiene al llamar a la API
+                { response ->
+                    Log.d("respuesta", response)
+                    try {
+                        var jsonResponse = JSONObject(response)
+                        var jsonObjectMain = jsonResponse.getJSONObject("main")
+                        var temperature = jsonObjectMain.getDouble("temp") - 273.15
+                        var cityName = jsonResponse.getString("name")
+                        textViewName.setTextColor(Color.rgb(68, 134, 199))
+                        textViewName.text = cityName
+                        textViewTemperature.setTextColor(
+                            Color.rgb(
+                                68,
+                                134,
+                                199
+                            )
+                        )
+                        textViewTemperature.text = temperature.toString()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                },
+                // Si se produce algún error en la busqueda, se muestra el Toast indicando que ha habido un error
+                {
+                    Toast.makeText(
+                        requireContext(),
+                        "Se ha producido un error al hacer la búsqueda",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                })
+            // Add the request to the RequestQueue.
+            val queue = Volley.newRequestQueue(requireContext())
+            queue.add(stringRequest)
+        }
+    }
+
+/*    private fun saveCity() {
+        val dataRepository = DataRepository(requireContext())
+        if (dataRepository.insertCity(
+                City(
+                    textViewResultName.text.toString(),
+                    textViewResultTemperature.text.toString().toDouble()
+                )
+            ) == -1
+        ) {
+            Toast.makeText(requireContext(), "La ciudad ha sido registrado", Toast.LENGTH_LONG)
+                .show()
+        } else {
+        }
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
@@ -34,6 +110,7 @@ class CityWeatherFragment : Fragment() {
         menuItemSearch.setVisible(true)
         var searchView = menuItemSearch.actionView as SearchView
         searchView.queryHint = "Buscar"
+
     }
 
     companion object {
