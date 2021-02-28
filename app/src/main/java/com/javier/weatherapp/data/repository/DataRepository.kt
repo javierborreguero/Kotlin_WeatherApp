@@ -1,13 +1,13 @@
 package com.javier.weatherapp.data.repository
 
 import android.content.Context
-import android.os.AsyncTask
 import com.javier.weatherapp.data.database.AppDatabase
 import com.javier.weatherapp.data.model.city.City
 import com.javier.weatherapp.data.model.city.CityDao
 import com.javier.weatherapp.data.model.user.User
 import com.javier.weatherapp.data.model.user.UserDao
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
 
 class DataRepository(context: Context) {
     private val userDao: UserDao? = AppDatabase.getInstance(context)?.userDao()

@@ -19,6 +19,7 @@ class RegisterFragment : Fragment() {
     lateinit var editTextPassword: EditText
     private lateinit var buttonCancel: Button
     private lateinit var buttonAccept: Button
+    private var userId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +49,7 @@ class RegisterFragment : Fragment() {
         val dataRepository = DataRepository(requireContext())
         if (dataRepository.insertUser(
                 User(
+                    userId.toInt(),
                     editTextUserEmail.text.toString(),
                     editTextUserName.text.toString(),
                     editTextPassword.text.toString()
@@ -58,7 +60,11 @@ class RegisterFragment : Fragment() {
                 .show()
         } else {
             if (editTextUserEmail.text.toString() == "" || editTextUserName.text.toString() == "" || editTextPassword.text.toString() == "") {
-                Toast.makeText(requireContext(), "Por favor rellene todos los campos para poder finalizar el registro", Toast.LENGTH_LONG)
+                Toast.makeText(
+                    requireContext(),
+                    "Por favor rellene todos los campos para poder finalizar el registro",
+                    Toast.LENGTH_LONG
+                )
                     .show()
             } else {
                 Toast.makeText(requireContext(), "Usuario registrado con exito", Toast.LENGTH_LONG)

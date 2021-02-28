@@ -21,6 +21,7 @@ class CityWeatherFragment : Fragment() {
     private lateinit var buttonAdd: Button
     private lateinit var textViewName: TextView
     private lateinit var textViewTemperature: TextView
+    private var cityId = 0
     private val apiUrl = "http://api.openweathermap.org/data/2.5/weather"
     private val apiKey = "9f249e3ba99c564ea61245c238f2831c"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +41,12 @@ class CityWeatherFragment : Fragment() {
         buttonAdd = v.findViewById(R.id.buttonAdd)
         buttonAdd.setOnClickListener {
             getWeatherDetails()
-            saveCity()
         }
         return v
     }
 
     private fun getWeatherDetails() {
+        val dataRepository = DataRepository(requireContext())
         var tempUrl: String = ""
         var city = editTextTextAddCity.text.toString().trim()
         if (city == "") {
@@ -75,6 +76,21 @@ class CityWeatherFragment : Fragment() {
                         )
                         val tempToString: NumberFormat = NumberFormat.getNumberInstance()
                         textViewTemperature.text = (tempToString.format(temperature))
+                        if (dataRepository.insertCity(
+                                City(
+                                    cityId.toInt(),
+                                    editTextTextAddCity.text.toString(),
+                                    textViewTemperature.text.toString()
+                                )
+                            ) == -1
+                        ) {
+                            Toast.makeText(
+                                requireContext(),
+                                "La ciudad ha sido registrado",
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -94,20 +110,69 @@ class CityWeatherFragment : Fragment() {
         }
     }
 
-    private fun saveCity() {
-        val dataRepository = DataRepository(requireContext())
-        if (dataRepository.insertCity(
-                City(
-                    textViewName.text.toString(),
-                    textViewTemperature.text.toString().toDouble()
-                )
-            ) == -1
-        ) {
-            Toast.makeText(requireContext(), "La ciudad ha sido registrado", Toast.LENGTH_LONG)
-                .show()
-        } else {
-        }
-    }
+//    private fun saveCity() {
+//        val dataRepository = DataRepository(requireContext())
+//        var tempUrl: String = ""
+//        var city = editTextTextAddCity.text.toString().trim()
+//        if (city == "") {
+//            Toast.makeText(requireContext(), "El campo no puede estar vacío", Toast.LENGTH_SHORT)
+//                .show()
+//        } else {
+//            tempUrl = "$apiUrl?q=$city&appid=$apiKey"
+//            // Request a string response from the provided URL.
+//            val stringRequest = StringRequest(
+//                Request.Method.GET, tempUrl,
+//                // Si los datos están bien introducidos, mostramos el resultado que se obtiene al llamar a la API
+//                { response ->
+//                    Log.d("respuesta", response)
+//                    try {
+//                        var jsonResponse = JSONObject(response)
+//                        var jsonObjectMain = jsonResponse.getJSONObject("main")
+//                        var temperature = jsonObjectMain.getDouble("temp") - 273.15
+//                        var cityName = jsonResponse.getString("name")
+//                        textViewName.setTextColor(Color.rgb(68, 134, 199))
+//                        textViewName.text = cityName
+//                        textViewTemperature.setTextColor(
+//                            Color.rgb(
+//                                68,
+//                                134,
+//                                199
+//                            )
+//                        )
+//                        val tempToString: NumberFormat = NumberFormat.getNumberInstance()
+//                        textViewTemperature.text = (tempToString.format(temperature))
+//                        if (dataRepository.insertCity(
+//                                City(
+//                                    getWeatherDetails().editTextTextAddCity.text.toString(),
+//                                    textViewTemperature.text.toString()
+//                                )
+//                            ) == -1
+//                        ) {
+//                            Toast.makeText(
+//                                requireContext(),
+//                                "La ciudad ha sido registrado",
+//                                Toast.LENGTH_LONG
+//                            )
+//                                .show()
+//                        }
+//                    } catch (e: JSONException) {
+//                        e.printStackTrace()
+//                    }
+//                },
+//                // Si se produce algún error en la busqueda, se muestra el Toast indicando que ha habido un error
+//                {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        "Se ha producido un error al hacer la búsqueda",
+//                        Toast.LENGTH_SHORT
+//                    )
+//                        .show()
+//                })
+//            // Add the request to the RequestQueue.
+//            val queue = Volley.newRequestQueue(requireContext())
+//            queue.add(stringRequest)
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
