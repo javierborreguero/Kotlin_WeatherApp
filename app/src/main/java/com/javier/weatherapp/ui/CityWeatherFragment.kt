@@ -10,8 +10,11 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.javier.weatherapp.R
+import com.javier.weatherapp.data.model.city.City
+import com.javier.weatherapp.data.repository.DataRepository
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.NumberFormat
 
 class CityWeatherFragment : Fragment() {
     private lateinit var editTextTextAddCity: EditText
@@ -37,6 +40,7 @@ class CityWeatherFragment : Fragment() {
         buttonAdd = v.findViewById(R.id.buttonAdd)
         buttonAdd.setOnClickListener {
             getWeatherDetails()
+            saveCity()
         }
         return v
     }
@@ -69,7 +73,8 @@ class CityWeatherFragment : Fragment() {
                                 199
                             )
                         )
-                        textViewTemperature.text = temperature.toString()
+                        val tempToString: NumberFormat = NumberFormat.getNumberInstance()
+                        textViewTemperature.text = (tempToString.format(temperature))
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -89,12 +94,12 @@ class CityWeatherFragment : Fragment() {
         }
     }
 
-/*    private fun saveCity() {
+    private fun saveCity() {
         val dataRepository = DataRepository(requireContext())
         if (dataRepository.insertCity(
                 City(
-                    textViewResultName.text.toString(),
-                    textViewResultTemperature.text.toString().toDouble()
+                    textViewName.text.toString(),
+                    textViewTemperature.text.toString().toDouble()
                 )
             ) == -1
         ) {
@@ -102,7 +107,7 @@ class CityWeatherFragment : Fragment() {
                 .show()
         } else {
         }
-    }*/
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
