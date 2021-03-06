@@ -28,7 +28,7 @@ class CityAdapter(var cities: List<City>, var cityViewModel: CityViewModel) :
         holder.bindItems(cityFilterList[position])
         holder.itemView.setOnClickListener {
             cityViewModel.setSelectedCity(cityFilterList[position])
-            it.findNavController().navigate(R.id.action_homeFragment_to_registerFragment)
+            it.findNavController().navigate(R.id.action_cityWeatherFragment_to_manageCityFragment)
         }
     }
 
