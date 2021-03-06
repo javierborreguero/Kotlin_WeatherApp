@@ -11,7 +11,7 @@ import com.javier.weatherapp.R
 import com.javier.weatherapp.data.model.city.City
 import com.javier.weatherapp.viewModel.CityViewModel
 
-class CityAdapter(var cities: List<City>, var cityViewModel: CityViewModel) :
+class CityAdapter(var cities: List<City>, private var cityViewModel: CityViewModel) :
     RecyclerView.Adapter<CityAdapter.ViewHolder>() {
     var cityFilterList = ArrayList<City>()
 
@@ -70,10 +70,13 @@ class CityAdapter(var cities: List<City>, var cityViewModel: CityViewModel) :
 
         fun bindItems(cities: City) {
             val textViewCityName = itemView.findViewById<TextView>(R.id.textViewCityName)
-            textViewCityName.text = cities.cityName
-            val textViewCityTemperature =
-                itemView.findViewById<TextView>(R.id.textViewCityTemperatrue)
-            textViewCityTemperature.text = cities.cityTemperature
+            textViewCityName.text = cities.cityName + ":"
+            val textViewCityTemperature = itemView.findViewById<TextView>(R.id.textViewCityTemperatrue)
+            textViewCityTemperature.text = "Temp " + cities.cityTemperature + " ºC"
+            val textViewCityPressure = itemView.findViewById<TextView>(R.id.textViewCityPresure)
+            textViewCityPressure.text = "Pres " + cities.cityPressure + " (atm)"
+            val textViewCityHumidity = itemView.findViewById<TextView>(R.id.textViewCityHumidity)
+            textViewCityHumidity.text = "Hum " + cities.cityHumidity + " %"
         }
 
     }

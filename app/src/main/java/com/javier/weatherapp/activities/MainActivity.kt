@@ -1,4 +1,4 @@
-    package com.javier.weatherapp.activities
+package com.javier.weatherapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

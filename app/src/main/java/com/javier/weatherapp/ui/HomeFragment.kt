@@ -1,5 +1,7 @@
 package com.javier.weatherapp.ui
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.javier.weatherapp.R
 import com.javier.weatherapp.data.repository.DataRepository
-import com.javier.weatherapp.ui.HomeFragmentDirections
 
 
 class HomeFragment : Fragment() {

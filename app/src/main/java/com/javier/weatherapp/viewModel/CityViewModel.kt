@@ -7,7 +7,7 @@ class CityViewModel : ViewModel() {
     private var selectedCity: City
 
     init {
-        selectedCity = City(0, "", "")
+        selectedCity = City(0, "", "", "", "")
     }
 
     fun getSelectedCity(): City {

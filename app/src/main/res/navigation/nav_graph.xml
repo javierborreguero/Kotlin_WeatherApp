@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_cityWeatherFragment_to_manageCityFragment"
             app:destination="@id/manageCityFragment" />
+        <action
+            android:id="@+id/action_cityWeatherFragment_to_addCityFragment"
+            app:destination="@id/addCityFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageCityFragment"
@@ -45,6 +48,15 @@
         tools:layout="@layout/fragment_manage_city" >
         <action
             android:id="@+id/action_manageCityFragment_to_cityWeatherFragment"
+            app:destination="@id/cityWeatherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCityFragment"
+        android:name="com.javier.weatherapp.AddCityFragment"
+        android:label="fragment_add_city"
+        tools:layout="@layout/fragment_add_city" >
+        <action
+            android:id="@+id/action_addCityFragment_to_cityWeatherFragment"
             app:destination="@id/cityWeatherFragment" />
     </fragment>
 </navigation>
