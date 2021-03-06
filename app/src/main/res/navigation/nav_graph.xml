@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_cityWeatherFragment_to_addCityFragment"
             app:destination="@id/addCityFragment" />
+        <action
+            android:id="@+id/action_cityWeatherFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageCityFragment"

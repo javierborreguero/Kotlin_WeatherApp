@@ -1,7 +1,8 @@
 package com.javier.weatherapp.ui
 
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences.Editor
+
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class HomeFragment : Fragment() {
         editTextLoginUserName = v.findViewById(R.id.editTextLoginUserName)
         editTextLoginPassword = v.findViewById(R.id.editTextLoginPassword)
         buttonLogin = v.findViewById(R.id.buttonLogin)
+        findNavController().navigate(R.id.action_homeFragment_to_cityWeatherFragment)
         buttonLogin.setOnClickListener {
             userLogin()
         }
@@ -64,8 +66,17 @@ class HomeFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
-                    val action = HomeFragmentDirections.actionHomeFragmentToCityWeatherFragment()
-                    findNavController().navigate(action)
+                    val preferences = activity?.getSharedPreferences("login", Context.MODE_PRIVATE)
+                    var editor: SharedPreferences.Editor = preferences!!.edit()
+                    editor.putString("login", "true")
+                    editor.apply()
+                    val preferencesUsr =
+                        activity?.getSharedPreferences("user", Context.MODE_PRIVATE)
+                    var editorUsr: SharedPreferences.Editor = preferencesUsr!!.edit()
+                    editorUsr.putString("user", editTextLoginUserName.text.toString())
+                    editorUsr.apply()
+                    //  val action = HomeFragmentDirections.actionHomeFragmentToCityWeatherFragment()
+                    findNavController().navigate(R.id.action_homeFragment_to_cityWeatherFragment)
                 }
             } else {
                 Toast.makeText(requireContext(), "Datos incorrectos", Toast.LENGTH_LONG).show()

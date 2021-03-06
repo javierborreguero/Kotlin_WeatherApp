@@ -1,5 +1,7 @@
 package com.javier.weatherapp.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -74,6 +77,20 @@ class CityWeatherFragment : Fragment() {
                 return false
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logoutFragment -> {
+                val preferences = activity?.getSharedPreferences("login", Context.MODE_PRIVATE)
+                var editor: SharedPreferences.Editor = preferences!!.edit()
+                editor.putString("login", "false")
+                editor.apply()
+                Toast.makeText(context, "Adios", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_cityWeatherFragment_to_homeFragment)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
