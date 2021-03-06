@@ -1,16 +1,17 @@
 package com.javier.weatherapp.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.javier.weatherapp.R
 import com.javier.weatherapp.data.repository.DataRepository
+import com.javier.weatherapp.ui.HomeFragmentDirections
 
 
 class HomeFragment : Fragment() {

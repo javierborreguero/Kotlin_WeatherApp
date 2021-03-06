@@ -33,5 +33,14 @@
         android:id="@+id/cityWeatherFragment"
         android:name="com.javier.weatherapp.ui.CityWeatherFragment"
         android:label="fragment_city_weather"
-        tools:layout="@layout/fragment_city_weather" />
+        tools:layout="@layout/fragment_city_weather" >
+        <action
+            android:id="@+id/action_cityWeatherFragment_to_manageCityFragment"
+            app:destination="@id/manageCityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageCityFragment"
+        android:name="com.javier.weatherapp.ManageCityFragment"
+        android:label="fragment_manage_city"
+        tools:layout="@layout/fragment_manage_city" />
 </navigation>

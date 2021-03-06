@@ -6,12 +6,23 @@ import androidx.room.Query
 
 @Dao
 interface CityDao {
-    @Query("SELECT count(*) FROM city where cityName = :cityName and cityTemperature = :cityTemperature")
-    suspend fun selectUserByCityNameAndTemperature(cityName: String, cityTemperature: Double): Int?
+    @Query("SELECT * FROM city")
+    suspend fun getCity(): List<City>
 
-    @Query("SELECT count(*) FROM city")
-    suspend fun selectCity(): Int?
+
+    @Query("SELECT * FROM city where cityId = :id")
+    suspend fun getCityById(id: Int): City
 
     @Insert
     suspend fun insert(city: City)
+
+    @Insert
+    suspend fun insert(cities: List<City>)
+
+
+    @Query("DELETE FROM city WHERE cityName = :cityName")
+    suspend fun delete(cityName: String)
+
+    @Query("UPDATE city SET cityName = :newCityName Where cityName = :mName")
+    suspend fun update(mName: String, newCityName: String): Int?
 }
